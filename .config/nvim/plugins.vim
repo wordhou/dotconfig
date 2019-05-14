@@ -75,7 +75,7 @@ nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
 command! -nargs=0 Format :call CocAction('format')
 
 " === Denite shorcuts === "
-"   db         - Browser currently open buffers
+"   <leader>db         - Browser currently open buffers
 "   <leader>dr - Browse list of files in current directory
 "   <leader>dg - Search current directory for occurences of given term and
 "   close window if no results
@@ -112,13 +112,9 @@ function! CocCurrentFunction()
   return get(b:, 'coc_current_function', '')
 endfunction
 
-
-
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
-
-
 
 function! MyFileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
