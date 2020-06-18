@@ -28,15 +28,23 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update
 sudo apt-get install yarn
 
+# Install python3
+sudo apt install pip pip3
+
 # Install neovim
 sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 git clone git@github.com:neovim/neovim.git
 make CMAKE_BUILD_TYPE=Release
 sudo make install
 
+# Install ripgrep
+sudo add-apt-repository ppa:x4121/ripgrep
+sudo apt update
+sudo apt install ripgrep
+
 # neovim stuff
-sudo apt intsall python3-neovim
 yarn global add neovim
+pip install -U neovim pynvim msgpack
 
 # Install Haskell
 
