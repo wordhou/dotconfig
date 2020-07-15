@@ -25,11 +25,13 @@ Plug 'leshill/vim-json'
 " Typescript
 Plug 'HerringtonDarkholme/yats.vim'
 
+" Latex
+Plug 'lervag/vimtex'
+
 call plug#end()
 
 " ===== NERDTree =====
 nnoremap <leader>n :NERDTreeToggle<CR>
-"nnoremap <silent> <leader>c :NERDTreeFind<CR>
 
 " ===== JavaScript =====
 let g:javascript_conceal_arrow_function       = "⇒"
@@ -103,8 +105,8 @@ let g:coc_global_extensions = [
 "   <leader>j - Search current directory for occurences of word under cursor
 nmap ; :Denite buffer -split=floating -winrow=1<CR>
 nmap <leader>ls :Denite file/rec -split=floating -winrow=1<CR>
-nnoremap <leader>g :<C-u>Denite grep:. -no-empty -winrow=1<CR>
-nnoremap <leader>j :<C-u>DeniteCursorWord grep:. <CR>
+nnoremap <leader>g :<C-u>Denite grep:. -no-empty -split=floating -winrow=1<CR>
+nnoremap <leader>j :<C-u>DeniteCursorWord grep:. -split=floating<CR>
 
 " ripgrep setup
 
@@ -176,8 +178,6 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction',
-      \   'filetype': 'MyFiletype',
       \   'fileformat': 'MyFileformat'
       \ },
       \ }
