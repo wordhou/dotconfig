@@ -9,12 +9,18 @@ ssh -T git@github.com
 
 ############## CONFIGURATION FILES ###########
 # Download dotfiles
+mkdir dotconfig
+cd dotconfig
 git clone git@github.com:wordhou/dotconfig.git
+cd ~
 
 # Link dotfiles
-mkdir -p .config/nvim
-# ... ln -s dotconfig/.config/nvim/init.vim......
-
+mkdir -p ~/.config/nvim
+ln -s dotconfig/.config/nvim/init.vim .config/nvim/init.vim
+ln -s dotconfig/.config/nvim/plugins.vim .config/nvim/plugins.vim
+ln -s dotconfig/.config/.tmux.conf .tmux.conf
+ln -s dotconfig/.config/.tmux.conf .tmux.conf.local
+ln -s dotconfig/.config/.bash_aliases .bash_aliases
 ##############################################
 
 ### Install node js
