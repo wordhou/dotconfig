@@ -11,8 +11,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'Shougo/denite.nvim'
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
-Plug 'Shougo/neosnippet.vim' 
-Plug 'Shougo/neosnippet-snippets'
+"Plug 'Shougo/neosnippet.vim' 
+"Plug 'Shougo/neosnippet-snippets'
 
 "  Colors
 Plug 'joshdick/onedark.vim'
@@ -30,21 +30,22 @@ Plug 'lervag/vimtex'
 
 call plug#end()
 
-" ===== NERDTree =====
-nnoremap <leader>n :NERDTreeToggle<CR>
-
 " ===== JavaScript =====
 let g:javascript_conceal_arrow_function       = "⇒"
 set conceallevel=1
 
-" ===== NeoSnippet =====
-let g:neosnippet#snippets_directory = '~/.config/nvim/neosnippets'
-" conceal neosnippet markers
-set concealcursor=niv
+" ===== NERDTree =====
+nnoremap <leader>n :NERDTreeToggle<CR>
 
-imap <leader>k <Plug>(neosnippet_expand_or_jump)
-smap <leader>k <Plug>(neosnippet_expand_or_jump)
-xmap <leader>k <Plug>(neosnippet_expand_target)
+
+" ===== NeoSnippet =====
+"let g:neosnippet#snippets_directory = '~/.config/nvim/neosnippets'
+" conceal neosnippet markers
+"set concealcursor=niv
+
+"imap <leader>k <Plug>(neosnippet_expand_or_jump)
+"smap <leader>k <Plug>(neosnippet_expand_or_jump)
+"xmap <leader>k <Plug>(neosnippet_expand_target)
 
 " ===== Coc ======
 " use <tab> for trigger completion and navigate to next complete item
@@ -181,3 +182,7 @@ let g:lightline = {
       \   'fileformat': 'MyFileformat'
       \ },
       \ }
+
+" ============ vimwiki ================
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
