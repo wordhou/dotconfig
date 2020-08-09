@@ -54,7 +54,6 @@ set foldnestmax=1
 set scrolloff=8
 
 " ====== SPLITS ======
-nmap <leader>w <C-W>
 set splitbelow " new split opens below
 set splitright " new split opens to right
 

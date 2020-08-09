@@ -16,7 +16,7 @@ Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 
 "  Colors
 Plug 'joshdick/onedark.vim'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
