@@ -42,6 +42,9 @@ sudo add-apt-repository ppa:x4121/ripgrep
 sudo apt update
 sudo apt install ripgrep
 
+# Install bat?
+sudo apt install bat
+
 
 ################################################################
 ### Programming language specific install ###
