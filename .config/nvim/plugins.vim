@@ -94,11 +94,6 @@ command! -nargs=0 Format :call CocAction('format')
 
 
 " ===== Denite shorcuts ===== "
-"   ;        - Browser currently open buffers
-"   <leader>ls - Browse list of files in current directory
-"   <leader>g - Search current directory for occurences of given term and
-"   close window if no results
-"   <leader>j - Search current directory for occurences of word under cursor
 nmap ; :Denite buffer -split=floating -winrow=1<CR>
 nmap <leader>ls :Denite file/rec -split=floating -winrow=1<CR>
 nnoremap <leader>dg :<C-u>Denite grep:. -no-empty -split=floating -winrow=1<CR>
@@ -186,6 +181,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext = 0 " Only assigns vimwiki filetype to .md files in the vimwiki path
 let g:vimwiki_table_mappings=0 " Disables table mappings, freeing <TAB> for tab completion (coc)
+let g:vimwiki_markdown_link_ext = 1 " Adds .md to links
 
 " ============ vimtex =================
 let g:tex_flavor = 'latex'
