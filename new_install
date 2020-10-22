@@ -20,7 +20,6 @@ ln -s dotconfig/.config/nvim/plugins.vim .config/nvim/plugins.vim
 ln -s dotconfig/.tmux.conf .tmux.conf
 ln -s dotconfig/.tmux.conf .tmux.conf.local
 ln -s dotconfig/.bash_aliases .bash_aliases
-ln -s dotconfig/.bash_aliases .bash_aliases
 ln -s dotconfig/.zshrc .zshrc
 ################################################################
 # System utilities that I like

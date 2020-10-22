@@ -1,11 +1,11 @@
 call plug#begin('~/.config/nvim/plugged')
 
-" Utility
-Plug 'scrooloose/nerdtree' " File browser tree sidebar on left
+" General
+" Plug 'scrooloose/nerdtree' " Phasing out nerdtree for netrw
 Plug 'itchyny/lightline.vim' "Lightweight status bar
 Plug 'ryanoasis/vim-devicons' " Adds filetype icons to NERDTree and lightline
-Plug 'vimwiki/vimwiki' " Personal journal
-Plug 'tpope/vim-fugitive' " Git integration
+Plug 'fcpg/vim-waikiki'
+" Plug 'tpope/vim-fugitive' " Git integration
 Plug 'liuchengxu/vista.vim' " Code outline sidebar on right
 
 " Major
@@ -19,23 +19,18 @@ Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 
-" Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'leshill/vim-json'
-
-" Rust
-Plug 'rust-lang/rust.vim'
-
-" Typescript
-Plug 'HerringtonDarkholme/yats.vim'
-
-" Latex
-Plug 'lervag/vimtex'
+" Language specific
+Plug 'pangloss/vim-javascript' " Javascript
+Plug 'leshill/vim-json' " Json
+Plug 'HerringtonDarkholme/yats.vim' " Typescript
+Plug 'rust-lang/rust.vim' " Rust
+Plug 'lervag/vimtex' " Latex
+Plug 'gabrielelana/vim-markdown' " Markdown
 
 call plug#end()
 
 " =========== NERDTree ============
-nnoremap <leader>n :NERDTreeToggle<CR>
+"nnoremap <leader>n :NERDTreeToggle<CR>
 
 " =========== Vista.vim ===========
 nnoremap <silent><leader>v :Vista!!<CR>
@@ -68,8 +63,6 @@ let g:coc_global_extensions = [
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u<CR>"
-" This adds a <Ctrl+Enter> completion option since vimwiki takes over the <CR>
-inoremap <expr> <NL> pumvisible() ? "\<C-y>" : "\<C-g>u<CR>"
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 vmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -91,7 +84,6 @@ nmap <silent> <leader>cj <Plug>(coc-diagnostic-next)
 nnoremap <leader>cl :CocList<CR>
 nnoremap <leader>cz :CocList diagnostics<CR>
 command! -nargs=0 Format :call CocAction('format')
-
 
 " ===== Denite shorcuts ===== "
 nmap ; :Denite buffer -split=floating -winrow=1<CR>
@@ -119,41 +111,27 @@ call denite#custom#var('buffer', 'date_format', '')
 " Denite keymappings in denite buffers
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
-nnoremap <silent><buffer><expr> <CR>
-      \ denite#do_map('do_action')
-nnoremap <silent><buffer><expr> d
-      \ denite#do_map('do_action', 'delete')
-nnoremap <silent><buffer><expr> p
-      \ denite#do_map('do_action', 'preview')
-nnoremap <silent><buffer><expr> s
-      \ denite#do_map('do_action', 'split')
-nnoremap <silent><buffer><expr> v
-      \ denite#do_map('do_action', 'vsplit')
-nnoremap <silent><buffer><expr> <Esc>
-      \ denite#do_map('quit')
-nnoremap <silent><buffer><expr> i
-      \ denite#do_map('open_filter_buffer')
-nnoremap <silent><buffer><expr> <Space>
-      \ denite#do_map('toggle_select')
+nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
+nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'split')
+nnoremap <silent><buffer><expr> v denite#do_map('do_action', 'vsplit')
+nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
+nnoremap <silent><buffer><expr> q denite#do_map('quit')
+nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
+nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select')
             endfunction
 
 " === fruzzy setup ===
-let g:fruzzy#usenative = 1
-" When there's no input, fruzzy can sort entries based on how similar they are
-" to the current buffer
-" " For ex: if you're on /path/to/somefile.h, then on opening denite,
-" /path/to/somefile.cpp
-" would appear on the top of the list.
-" Useful if you're bouncing a lot between similar files.
-" To turn off this behavior, set the variable below  to 0
-let g:fruzzy#sortonempty = 1 " default value
+let g:fruzzy#usenative = 1 " use native executable
+let g:fruzzy#sortonempty = 1 " sort files by similarity to current buffer
 " tell denite to use this matcher by default for all sources
 call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 
 " =========== vim-lightline ===========
-function! CocCurrentFunction()
-  return get(b:, 'coc_current_function', '')
-endfunction
+"function! CocCurrentFunction()
+"  return get(b:, 'coc_current_function', '')
+"endfunction
 
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
@@ -176,12 +154,14 @@ let g:lightline = {
       \ },
       \ }
 
-" ============ vimwiki ================
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_global_ext = 0 " Only assigns vimwiki filetype to .md files in the vimwiki path
-let g:vimwiki_table_mappings=0 " Disables table mappings, freeing <TAB> for tab completion (coc)
-let g:vimwiki_markdown_link_ext = 1 " Adds .md to links
+" ============= vim-waikiki ===============
+let g:waikiki_roots = ['~/vimwiki/']
+let g:waikiki_default_maps = 1
+
+" ============= vim-markdown =============
+let g:markdown_enable_mappings = 0
+let g:markdown_enable_spell_checking = 0
+let g:markdown_enable_conceal = 1
 
 " ============ vimtex =================
 let g:tex_flavor = 'latex'

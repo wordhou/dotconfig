@@ -10,6 +10,7 @@ set shortmess+=c               " disable completion messages
 set signcolumn=yes
 
 let mapleader=","
+let maplocalleader="\<space>"
 
 " ====== PLUGINS ======
 so ~/.config/nvim/plugins.vim " in a seperate file
@@ -66,3 +67,10 @@ nnoremap <leader>th :tabp<CR>
 nnoremap <leader>tl :tabn<CR>
 nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>tc :tabc<CR>
+
+" ===== FILE EXPLORER =====
+nnoremap <leader>n :Rex<CR>
+let g:netrw_liststyle=3
+let g:netrw_banner=0 
+let g:netrw_winsize=20 
+"let g:netrw_browse_split=4
