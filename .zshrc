@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
- export PATH=$PATH:$HOME/bin:/usr/local/go/bin
+ export PATH=$PATH:$HOME/bin:$HOME/.local/bin:/usr/local/go/bin
  #:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
@@ -108,3 +108,4 @@ export EDITOR=vim
 alias vim=nvim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "/home/ed/.ghcup/env" ] && source "/home/ed/.ghcup/env" # ghcup-env

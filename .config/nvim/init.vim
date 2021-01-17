@@ -29,7 +29,7 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 let g:onedark_terminal_italics=1
-colorscheme onedark
+colorscheme gruvbox-material
 
 " Searching
 set ignorecase
@@ -69,8 +69,13 @@ nnoremap <leader>tn :tabnew<CR>
 nnoremap <leader>tc :tabc<CR>
 
 " ===== FILE EXPLORER =====
-nnoremap <leader>n :Rex<CR>
+nnoremap <leader>r :Rex<CR>
+nnoremap <leader>n :Lex<CR>
 let g:netrw_liststyle=3
 let g:netrw_banner=0 
 let g:netrw_winsize=20 
 "let g:netrw_browse_split=4
+
+" ===== Journal =====
+nnoremap <C-S-T> "=strftime("[%B %d, %Y](%Y-%m-%d.md)")<CR>p
+inoremap <C-S-T> <C-R>=strftime("[%B %d, %Y](%Y-%m-%d.md)")<CR>

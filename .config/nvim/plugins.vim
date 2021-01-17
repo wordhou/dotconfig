@@ -1,23 +1,35 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " General
-" Plug 'scrooloose/nerdtree' " Phasing out nerdtree for netrw
 Plug 'itchyny/lightline.vim' "Lightweight status bar
 Plug 'ryanoasis/vim-devicons' " Adds filetype icons to NERDTree and lightline
 Plug 'fcpg/vim-waikiki'
-" Plug 'tpope/vim-fugitive' " Git integration
+Plug 'itchyny/calendar.vim'
+Plug 'tpope/vim-fugitive' " Git integration
 Plug 'liuchengxu/vista.vim' " Code outline sidebar on right
 
-" Major
+" Completion and LSP
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
+"Telescope
+Plug '~/projects/telescope.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+
 " Denite
-Plug 'Shougo/denite.nvim'
-Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
+" Plug 'wordhou/denite-hoogle.nvim' " Haskell - Does this work??
+" Plug 'Shougo/denite.nvim'
+" Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
+
+" Vim-Clap
+Plug 'liuchengxu/vim-clap', {'do': { -> clap#installer#force_download() }}
+Plug 'meck/vim-clap-hoogle'
+Plug 'vn-ki/coc-clap'
 
 "  Colors
 Plug 'joshdick/onedark.vim'
-Plug 'morhetz/gruvbox'
+Plug 'franbach/miramare'
+Plug 'sainnhe/gruvbox-material'
 
 " Language specific
 Plug 'pangloss/vim-javascript' " Javascript
@@ -26,11 +38,23 @@ Plug 'HerringtonDarkholme/yats.vim' " Typescript
 Plug 'rust-lang/rust.vim' " Rust
 Plug 'lervag/vimtex' " Latex
 Plug 'gabrielelana/vim-markdown' " Markdown
+Plug 'neovimhaskell/haskell-vim' 
 
 call plug#end()
 
-" =========== NERDTree ============
-"nnoremap <leader>n :NERDTreeToggle<CR>
+" =========== Clap ================
+let g:clap_layout = { 'relative': 'editor' }
+nnoremap <leader>ds :Clap<CR><ESC>
+nnoremap <leader>dl :Clap lines<CR><ESC>
+nnoremap <leader>db :Clap buffers<CR><ESC>
+nnoremap ; :Clap buffers<CR><ESC>
+nnoremap <leader>dg :Clap grep2<CR>
+vnoremap <leader>dg :Clap grep ++query=@visual<CR>
+nnoremap <leader>df :Clap files<CR>
+nnoremap <leader>dh :Clap help_tags<CR>
+nnoremap <leader>dr :Clap registers<CR><ESC>
+nnoremap <leader>dm :Clap marks<CR><ESC>
+nnoremap <leader>dy :Clap yanks<CR><ESC>
 
 " =========== Vista.vim ===========
 nnoremap <silent><leader>v :Vista!!<CR>
@@ -55,7 +79,8 @@ let g:coc_global_extensions = [
   \ 'coc-prettier',
   \ 'coc-emoji',
   \ 'coc-rust-analyzer',
-  \ 'coc-go'
+  \ 'coc-go',
+  \ 'coc-clangd'
   \ ]
 
 " Use <Tab> and <S-Tab> to navigate completion list, and use <Enter> or
@@ -86,47 +111,49 @@ nnoremap <leader>cz :CocList diagnostics<CR>
 command! -nargs=0 Format :call CocAction('format')
 
 " ===== Denite shorcuts ===== "
-nmap ; :Denite buffer -split=floating -winrow=1<CR>
-nmap <leader>ls :Denite file/rec -split=floating -winrow=1<CR>
-nnoremap <leader>dg :<C-u>Denite grep:. -no-empty -split=floating -winrow=1<CR>
-nnoremap <leader>dj :<C-u>DeniteCursorWord grep:. -split=floating<CR>
-nnoremap <leader>ds :<C-u>Denite source -split=floating<CR>
-nnoremap <leader>dh :<C-u>Denite help -split=floating<CR>
-nnoremap <leader>dm :<C-u>Denite mark -split=floating<CR>
-nnoremap <leader>dr :<C-u>Denite register -split=floating<CR>
-
-" ripgrep setup: Denite uses ripgrep for grep
-call denite#custom#var('file/rec', 'command',
-  \ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
-call denite#custom#var('grep', 'command', ['rg'])
-" Recommended defaults for ripgrep via Denite docs
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-
-" Remove date from buffer list
-call denite#custom#var('buffer', 'date_format', '')
-
-" Denite keymappings in denite buffers
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
-nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
-nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'split')
-nnoremap <silent><buffer><expr> v denite#do_map('do_action', 'vsplit')
-nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
-nnoremap <silent><buffer><expr> q denite#do_map('quit')
-nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
-nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select')
-            endfunction
-
-" === fruzzy setup ===
-let g:fruzzy#usenative = 1 " use native executable
-let g:fruzzy#sortonempty = 1 " sort files by similarity to current buffer
-" tell denite to use this matcher by default for all sources
-call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
+" nmap ; :Denite buffer -split=floating -winrow=1<CR>
+" nmap <leader>ls :Denite file/rec -split=floating -winrow=1<CR>
+" nnoremap <leader>dg :<C-u>Denite grep:. -no-empty -split=floating -winrow=1<CR>
+" nnoremap <leader>dj :<C-u>DeniteCursorWord grep:. -split=floating<CR>
+" nnoremap <leader>ds :<C-u>Denite source -split=floating<CR>
+" nnoremap <leader>dh :<C-u>Denite help -split=floating<CR>
+" nnoremap <leader>dm :<C-u>Denite mark -split=floating<CR>
+" nnoremap <leader>dr :<C-u>Denite register -split=floating<CR>
+" 
+" " ripgrep setup: Denite uses ripgrep for grep
+" call denite#custom#var('file/rec', 'command',
+"   \ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
+" call denite#custom#var('grep', 'command', ['rg'])
+" " Recommended defaults for ripgrep via Denite docs
+" call denite#custom#var('grep', 'recursive_opts', [])
+" call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+" call denite#custom#var('grep', 'separator', ['--'])
+" call denite#custom#var('grep', 'final_opts', [])
+" 
+" " Remove date from buffer list
+" call denite#custom#var('buffer', 'date_format', '')
+" 
+" " Denite keymappings in denite buffers
+" autocmd FileType denite call s:denite_my_settings()
+" function! s:denite_my_settings() abort
+" nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+" nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
+" nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+" nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'split')
+" nnoremap <silent><buffer><expr> v denite#do_map('do_action', 'vsplit')
+" nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
+" nnoremap <silent><buffer><expr> q denite#do_map('quit')
+" nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
+" nnoremap <silent><buffer><expr> l denite#do_map('do_action', 'open_link')
+" nnoremap <silent><buffer><expr> m denite#do_map('do_action', 'insert_import')
+" nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select')
+"             endfunction
+" 
+" " === fruzzy setup ===
+" let g:fruzzy#usenative = 1 " use native executable
+" let g:fruzzy#sortonempty = 1 " sort files by similarity to current buffer
+" " tell denite to use this matcher by default for all sources
+" call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 
 " =========== vim-lightline ===========
 "function! CocCurrentFunction()
@@ -153,6 +180,8 @@ let g:lightline = {
       \   'method': 'NearestMethodOrFunction'
       \ },
       \ }
+
+let g:lightline.colorscheme = 'gruvbox_material'
 
 " ============= vim-waikiki ===============
 let g:waikiki_roots = ['~/vimwiki/']
