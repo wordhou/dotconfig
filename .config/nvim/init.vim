@@ -9,6 +9,9 @@ syntax on
 set shortmess+=c               " disable completion messages
 set signcolumn=yes
 
+set ignorecase                 " Searching
+set smartcase
+
 let mapleader=","
 let maplocalleader="\<space>"
 
@@ -28,12 +31,7 @@ endif
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-let g:onedark_terminal_italics=1
 colorscheme gruvbox-material
-
-" Searching
-set ignorecase
-set smartcase
 
 " ====== INDENTATION ======
 set autoindent

@@ -38,7 +38,7 @@ Plug 'HerringtonDarkholme/yats.vim' " Typescript
 Plug 'rust-lang/rust.vim' " Rust
 Plug 'lervag/vimtex' " Latex
 Plug 'gabrielelana/vim-markdown' " Markdown
-Plug 'neovimhaskell/haskell-vim' 
+Plug 'neovimhaskell/haskell-vim' " Haskell
 
 call plug#end()
 
@@ -68,19 +68,22 @@ endfunction
 
 " =========== Coc =================
 let g:coc_global_extensions = [
-  \ 'coc-css',
   \ 'coc-highlight',
+  \ 'coc-css',
   \ 'coc-html',
   \ 'coc-json',
-  \ 'coc-stylelint',
-  \ 'coc-tag',
   \ 'coc-tsserver',
   \ 'coc-eslint',
   \ 'coc-prettier',
-  \ 'coc-emoji',
+  \ 'coc-stylelint',
   \ 'coc-rust-analyzer',
   \ 'coc-go',
-  \ 'coc-clangd'
+  \ 'coc-clangd',
+  \ 'coc-vimtex',
+  \ 'coc-lua',
+  \ 'coc-tag',
+  \ 'coc-emoji',
+  \ 'coc-java'
   \ ]
 
 " Use <Tab> and <S-Tab> to navigate completion list, and use <Enter> or
