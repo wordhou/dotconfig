@@ -15,6 +15,8 @@ set smartcase
 let mapleader=","
 let maplocalleader="\<space>"
 
+set mouse=a
+
 " ====== PLUGINS ======
 so ~/.config/nvim/plugins.vim " in a seperate file
 

@@ -32,6 +32,7 @@ Plug 'franbach/miramare'
 Plug 'sainnhe/gruvbox-material'
 
 " Language specific
+Plug 'nikvdp/ejs-syntax' "ejs
 Plug 'pangloss/vim-javascript' " Javascript
 Plug 'leshill/vim-json' " Json
 Plug 'HerringtonDarkholme/yats.vim' " Typescript
@@ -197,7 +198,3 @@ let g:markdown_enable_conceal = 1
 
 " ============ vimtex =================
 let g:tex_flavor = 'latex'
-
-" ===== JavaScript =====
-let g:javascript_conceal_arrow_function       = "⇒"
-set conceallevel=1

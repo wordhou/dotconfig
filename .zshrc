@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
- export PATH=$PATH:$HOME/bin:$HOME/.local/bin:/usr/local/go/bin
+ export PATH=/usr/local/android-studio/bin:/opt/gradle/latest/bin:/usr/local/cuda/bin:$PATH:$HOME/bin:$HOME/.local/bin:/usr/local/go/bin
  #:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
