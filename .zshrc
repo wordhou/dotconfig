@@ -1,9 +1,5 @@
-# If you come from bash you might have to change your $PATH.
- export PATH=/usr/local/android-studio/bin:/opt/gradle/latest/bin:/usr/local/cuda/bin:$PATH:$HOME/bin:$HOME/.local/bin:/usr/local/go/bin
- #:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
-export ZSH="/home/ed/.oh-my-zsh"
+# export ZSH="/home/ed/.oh-my-zsh"
 
 # Make it use vi-style navigation
 bindkey -v
@@ -105,7 +101,3 @@ export EDITOR=vim
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim=nvim
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f "/home/ed/.ghcup/env" ] && source "/home/ed/.ghcup/env" # ghcup-env

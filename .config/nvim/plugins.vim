@@ -1,3 +1,9 @@
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.config/nvim/plugged')
 
 " General
@@ -9,12 +15,14 @@ Plug 'tpope/vim-fugitive' " Git integration
 Plug 'liuchengxu/vista.vim' " Code outline sidebar on right
 
 " Completion and LSP
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+
 
 "Telescope
-Plug '~/projects/telescope.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
+"Plug '~/projects/telescope.nvim'
+"Plug 'nvim-lua/popup.nvim'
+"Plug 'nvim-lua/plenary.nvim'
 
 " Denite
 " Plug 'wordhou/denite-hoogle.nvim' " Haskell - Does this work??
@@ -198,3 +206,6 @@ let g:markdown_enable_conceal = 1
 
 " ============ vimtex =================
 let g:tex_flavor = 'latex'
+
+"
+let g:coc_disable_startup_warning = 1

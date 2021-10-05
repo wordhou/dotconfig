@@ -18,7 +18,8 @@ let maplocalleader="\<space>"
 set mouse=a
 
 " ====== PLUGINS ======
-so ~/.config/nvim/plugins.vim " in a seperate file
+silent! so ~/.config/nvim/plugins.vim " in a seperate file
+silent! so ~/.vim/plugins.vim
 
 " ====== COLORS ======
 if (empty($TMUX))
@@ -30,10 +31,12 @@ if (empty($TMUX))
   endif
 endif
 
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 colorscheme gruvbox-material
+set background=dark
+
 
 " ====== INDENTATION ======
 set autoindent
