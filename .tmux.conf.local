@@ -182,13 +182,13 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
+tmux_conf_theme_status_left=' dev , apt | ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} , %R , %d %b | #{username}#{root} | #{hostname} '
 
 # status left style
-tmux_conf_theme_status_left_fg='#000000,#242424,#e4e4e4'  # black, white , white
-tmux_conf_theme_status_left_bg='#cae682,#e5786d,#d1e0eb'  # lime, peach, light grey
-tmux_conf_theme_status_left_attr='bold,none,none'
+tmux_conf_theme_status_left_fg='#000000,#242424,#242424'  # black, white , white
+tmux_conf_theme_status_left_bg='#93b7bE,#f1fffa,#d5c7bc'  # dark sky blue, minty light blue, pale cream
+tmux_conf_theme_status_left_attr='bold,bold,none'
 
 # status right style
 tmux_conf_theme_status_right_fg='#d0d0d0,#222222,#333333' # 
@@ -283,7 +283,7 @@ tmux_conf_copy_to_os_clipboard=false
 #set -g history-limit 10000
 
 # start with mouse mode enabled
-#set -g mouse on
+set -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
